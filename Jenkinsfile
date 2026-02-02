@@ -2,27 +2,21 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                sh 'mvn clean install'
+                git 'https://github.com/naveengadde123/End-to-end-pipeliene'
             }
         }
 
-        stage('Test') {
+        stage('Build Docker Image') {
             steps {
-                sh 'mvn test'
+                sh 'docker build -t myapp:latest .'
             }
         }
 
-        stage('Docker Build') {
+        stage('Run Container') {
             steps {
-                sh 'docker build -t myrepo/myapp:latest .'
-            }
-        }
-
-        stage('Docker Push') {
-            steps {
-                sh 'docker push myrepo/myapp:latest'
+                sh 'docker run -d -p 8080:8080 myapp:latest'
             }
         }
     }
