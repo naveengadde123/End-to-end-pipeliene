@@ -4,8 +4,21 @@ pipeline {
     stages {
         stage('Test Jenkins') {
             steps {
-                echo 'Jenkins pipeline is running'
-                sh 'echo "Hello from Jenkins on EC2"'
+                echo 'Pipeline working'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Run Maven build
+                sh 'mvn clean install'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // Run Maven tests
+                sh 'mvn test'
             }
         }
     }
