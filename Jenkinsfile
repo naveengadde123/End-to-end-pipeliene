@@ -1,11 +1,11 @@
 pipeline {
-    agent { label 'docker' }
+    agent any
 
     stages {
-        stage('Test Agent') {
+        stage('Test Jenkins') {
             steps {
-                sh 'hostname'
-                sh 'whoami'
+                echo 'Jenkins pipeline is running'
+                bat 'whoami'
             }
         }
     }
