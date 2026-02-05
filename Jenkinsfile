@@ -2,23 +2,22 @@ pipeline {
     agent any
 
     stages {
-        stage('Test Jenkins') {
-            steps {
-                echo 'Pipeline working'
-            }
-        }
-
         stage('Build') {
             steps {
-                // Run Maven build
-                sh 'mvn clean install'
+                sh 'mvn clean package -DskipTests'
             }
         }
 
         stage('Test') {
             steps {
-                // Run Maven tests
                 sh 'mvn test'
+            }
+        }
+
+        stage('Docker Build & Push') {
+            steps {
+                sh 'docker build -t myrepo/myapp:latest .'
+                sh 'docker push myrepo/myapp:latest'
             }
         }
     }
