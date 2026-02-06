@@ -16,8 +16,10 @@ pipeline {
 
         stage('Docker Build & Push') {
             steps {
-                sh 'docker build -t myrepo/myapp:latest .'
-                sh 'docker push myrepo/myapp:latest'
+                sh '''
+                  docker build -t naveenchowdari/myapp:latest .
+                  docker push naveenchowdari/myapp:latest
+                '''
             }
         }
     }
