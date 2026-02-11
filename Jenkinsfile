@@ -1,26 +1,34 @@
 pipeline {
+
     agent any
 
     stages {
-        stage('Build') {
+
+        stage('Stage 1') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                echo "Pipeline started..."
             }
         }
 
-        stage('Test') {
+        stage('Stage 2') {
             steps {
-                sh 'mvn test'
+                echo "This is running on Ubuntu Jenkins server."
             }
         }
 
-        stage('Docker Build & Push') {
+        stage('Stage 3') {
             steps {
-                sh '''
-                  docker build -t naveenchowdari/myapp:latest .
-                  docker push naveenchowdari/myapp:latest
-                '''
+                echo "Build stage completed."
             }
+        }
+    }
+
+    post {
+        success {
+            echo "Pipeline completed successfully."
+        }
+        failure {
+            echo "Pipeline failed."
         }
     }
 }
